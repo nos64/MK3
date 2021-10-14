@@ -1,5 +1,4 @@
-<<<<<<< Updated upstream
-=======
+
 //Task #0
 
 const player001 = {
@@ -58,4 +57,4 @@ function createPlayer(player1, player001) {
 
 createPlayer('player1', player001);
 createPlayer('player2', player002);
->>>>>>> Stashed changes
+
