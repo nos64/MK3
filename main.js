@@ -4,7 +4,7 @@ const $reloadPage = document.querySelector('.button-reload')
 
 const player001 = {
     player: 1,
-    name: 'Boris the Blade',
+    name: 'LIUKANG',
     hp: 100,
     img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
     weapon: ['Katana', 'Gun', 'Bomb'],
@@ -15,7 +15,7 @@ const player001 = {
 
 const player002 = {
     player: 2,
-    name: 'Brick Top',
+    name: 'SUB ZERO',
     hp: 100,
     img: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
     weapon: ['Pig', 'Knife', 'Rifle'],
@@ -56,28 +56,37 @@ function createPlayer(playerObj) {
 $arenas.appendChild(createPlayer(player001));
 $arenas.appendChild(createPlayer(player002));
 
+$randomButton.addEventListener('click', function() {
+    changeHP(player001);
+    changeHP(player002);
+    getWinner ();
+});
+
+function getWinner () {
+    if (player001.hp <= 0 || player002.hp <= 0) {
+        showWinner()
+        $randomButton.disabled = true;
+        $randomButton.style.backgroundColor = "red";
+        showReloadBtn()
+    }
+}
+
 function changeHP(player) {
     const $playerLife = document.querySelector('.player' + player.player +' .life');
-    player.hp -= Math.ceil(Math.random() * 20);
+    randomHP (player);
     $playerLife.style.width = player.hp + '%';
-    console.log(player.hp)
     if (player.hp <= 0) {
         player.hp = 0;
         $playerLife.style.width = 0 + '%';
-        console.log(player.hp)
-        // $arenas.appendChild(playerLose(player.name));
-        $randomButton.disabled = true;
-        $randomButton.style.backgroundColor = "red";
     }
-    showWinner()
+    return player.hp;
 }
 
-// function playerLose(name) {
-//     const $loseTitle = createElement('div', 'loseTitle');
-//     $loseTitle.innerText = name + ' lose';
+function randomHP (player) {
+    player.hp -= Math.ceil(Math.random() * 20);
 
-//     return $loseTitle;
-// }
+    return player.hp;
+}
 
 function playerWin(name) {
     const $winTitle = createElement('div', 'loseTitle');
@@ -85,12 +94,6 @@ function playerWin(name) {
 
     return $winTitle;
 }
-
-$randomButton.addEventListener('click', function() {
-    changeHP(player001)
-    changeHP(player002)
-});
-
 
 function showWinner() {
     if (player001.hp <= 0) {
@@ -100,6 +103,12 @@ function showWinner() {
     }
 }
 
+function showReloadBtn() {
+    if ($randomButton.disabled) {
+        $reloadPage.style.display = 'block';
+    }
+}
 $reloadPage.addEventListener('click', function() {
+    
     window.location.reload()
 });
