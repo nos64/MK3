@@ -264,8 +264,9 @@ body {
 
 /* Reload page Button */
 .button-reload {
-    display: block;
-    position: absolute;
+    /* display: block; */
+    display: none; 
+    position: relative;
     padding: 0 16px;
     height: 36px;
     color: white;
@@ -273,8 +274,8 @@ body {
     text-transform: uppercase;
     background-color: #f5d100;
     border: none;
-    margin-top: 800px;
-    margin-left: auto;
+    margin-top: 150px;
+    margin-left: 10px;
     margin-right: auto;
     border-radius: 4px;
     box-sizing: border-box;
