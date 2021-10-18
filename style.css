@@ -262,27 +262,6 @@ body {
     top: 1px;
 }
 
-/* Reload page Button */
-.button-reload {
-    display: block;
-    position: absolute;
-    padding: 0 16px;
-    height: 36px;
-    color: white;
-    font-size: 18px;
-    text-transform: uppercase;
-    background-color: #f5d100;
-    border: none;
-    margin-top: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 4px;
-    box-sizing: border-box;
-    cursor: pointer;
-    font-family: "Mortal Kombat 3";
-    outline: none;
-}
-
 
 .loseTitle {
     position: absolute;
@@ -297,3 +276,14 @@ body {
     font-family: "Mortal Kombat 3";
 }
 
+.reloadWrap {
+    position: absolute;
+    top: 10%;
+    z-index: 1000;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+
+.reloadWrap .button {
+    margin-top: 0;
+}
