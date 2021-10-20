@@ -1,6 +1,5 @@
 const $arenas = document.querySelector('.arenas');
 const $randomButton = document.querySelector('.button');
-const $reloadPage = document.querySelector('.button-reload')
 
 const player001 = {
     player: 1,
@@ -10,7 +9,10 @@ const player001 = {
     weapon: ['Katana', 'Gun', 'Bomb'],
     attack: function() {
         console.log(player001.name + ' ' + 'Fight...');
-    }
+    },
+    changeHP: changeHP,
+    elHP: elHP,
+    renderHP: renderHP,
 };
 
 const player002 = {
@@ -21,7 +23,10 @@ const player002 = {
     weapon: ['Pig', 'Knife', 'Rifle'],
     attack: function() {
         console.log(player002.name + ' ' + 'Fight...');
-    }
+    },
+    changeHP: changeHP,
+    elHP: elHP,
+    renderHP: renderHP,
 };
 
 function createElement (tag, className) {
@@ -56,59 +61,76 @@ function createPlayer(playerObj) {
 $arenas.appendChild(createPlayer(player001));
 $arenas.appendChild(createPlayer(player002));
 
-$randomButton.addEventListener('click', function() {
-    changeHP(player001);
-    changeHP(player002);
-    getWinner ();
-});
-
-function getWinner () {
-    if (player001.hp <= 0 || player002.hp <= 0) {
-        showWinner()
-        $randomButton.disabled = true;
-        $randomButton.style.backgroundColor = "red";
-        showReloadBtn()
+function changeHP(randNum) {
+    this.hp -= randNum;
+    if (this.hp <=0) {
+        this.hp = 0;
     }
+    console.log(player001.hp);
+    console.log(player002.hp);
 }
 
-function changeHP(player) {
-    const $playerLife = document.querySelector('.player' + player.player +' .life');
-    randomHP (player);
-    $playerLife.style.width = player.hp + '%';
-    if (player.hp <= 0) {
-        player.hp = 0;
-        $playerLife.style.width = 0 + '%';
-    }
-    return player.hp;
+function elHP() {
+    const $playerLife = document.querySelector('.player' + this.player +' .life');
+    console.log($playerLife);
+    return $playerLife;
 }
 
-function randomHP (player) {
-    player.hp -= Math.ceil(Math.random() * 20);
-
-    return player.hp;
+function renderHP() {
+    this.elHP().style.width = this.hp + '%';
+    console.log(player001.hp + '%');
+    console.log(player002.hp + '%');
 }
 
-function playerWin(name) {
+function getRandom(num) {
+    return Math.ceil(Math.random() * num);
+}
+
+function playerWins(name) {
     const $winTitle = createElement('div', 'loseTitle');
-    $winTitle.innerText = name + ' win!';
-
+    if (name) {
+        $winTitle.innerText = name + ' wins!';
+    } else {
+        $winTitle.innerText = ' DRAW';
+    }
+    
     return $winTitle;
 }
 
-function showWinner() {
-    if (player001.hp <= 0) {
-        $arenas.appendChild(playerWin(player002.name));
-    } else if (player002.hp <= 0) {
-        $arenas.appendChild(playerWin(player001.name));
+$randomButton.addEventListener('click', function() {
+    player001.changeHP(getRandom(20))
+    player002.changeHP(getRandom(20))
+    player001.renderHP()
+    player002.renderHP()
+    
+    if (player001.hp === 0 || player002.hp ===0) {
+        $randomButton.disabled = true;
+        $randomButton.style.backgroundColor = "red";
     }
+    
+    if (player001.hp === 0 && player001.hp < player002.hp >0) {
+        $arenas.appendChild(playerWins(player002.name));
+    } else if (player002.hp === 0 && player002.hp < player001.hp >0) {
+        $arenas.appendChild(playerWins(player001.name));
+    } else if (player002.hp === 0 && player002.hp === 0) {
+        $arenas.appendChild(playerWins());
+    }
+    if ($randomButton.disabled) {
+        createReloadButton()
+    }
+});
+
+
+function createReloadButton() {
+    const $reloadWrap = createElement('div', 'reloadWrap');
+    const $btnRestart = createElement('button', 'button');
+    $btnRestart.innerText = 'Restart';
+    $arenas.appendChild($reloadWrap);
+    $reloadWrap.appendChild($btnRestart);
+    
+    $btnRestart.addEventListener('click', function() {
+        window.location.reload()
+    });
 }
 
-function showReloadBtn() {
-    if ($randomButton.disabled) {
-        $reloadPage.style.display = 'block';
-    }
-}
-$reloadPage.addEventListener('click', function() {
-    
-    window.location.reload()
-});
+
