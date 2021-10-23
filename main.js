@@ -1,6 +1,8 @@
 const $arenas = document.querySelector('.arenas');
 const $randomButton = document.querySelector('.button');
 const $formFight = document.querySelector('.control');
+const $chat = document.querySelector('.chat');
+
 const HIT = {
     head: 30,
     body: 25,
@@ -8,6 +10,47 @@ const HIT = {
 }
 
 const ATTACK = ['head', 'body', 'foot'];
+
+const logs = {
+    start: 'Часы показывали [time], когда [player1] и [player2] бросили вызов друг другу.',
+    end: [
+        'Результат удара [playerWins]: [playerLose] - труп',
+        '[playerLose] погиб от удара бойца [playerWins]',
+        'Результат боя: [playerLose] - жертва, [playerWins] - убийца',
+    ],
+    hit: [
+        '[playerDefence] пытался сконцентрироваться, но [playerKick] разбежавшись раздробил копчиком левое ухо врага.',
+        '[playerDefence] расстроился, как вдруг, неожиданно [playerKick] случайно раздробил грудью грудину противника.',
+        '[playerDefence] зажмурился, а в это время [playerKick], прослезившись, раздробил кулаком пах оппонента.',
+        '[playerDefence] чесал <вырезано цензурой>, и внезапно неустрашимый [playerKick] отчаянно размозжил грудью левый бицепс оппонента.',
+        '[playerDefence] задумался, но внезапно [playerKick] случайно влепил грубый удар копчиком в пояс оппонента.',
+        '[playerDefence] ковырялся в зубах, но [playerKick] проснувшись влепил тяжелый удар пальцем в кадык врага.',
+        '[playerDefence] вспомнил что-то важное, но внезапно [playerKick] зевнув, размозжил открытой ладонью челюсть противника.',
+        '[playerDefence] осмотрелся, и в это время [playerKick] мимоходом раздробил стопой аппендикс соперника.',
+        '[playerDefence] кашлянул, но внезапно [playerKick] показав палец, размозжил пальцем грудь соперника.',
+        '[playerDefence] пытался что-то сказать, а жестокий [playerKick] проснувшись размозжил копчиком левую ногу противника.',
+        '[playerDefence] забылся, как внезапно безумный [playerKick] со скуки, влепил удар коленом в левый бок соперника.',
+        '[playerDefence] поперхнулся, а за это [playerKick] мимоходом раздробил коленом висок врага.',
+        '[playerDefence] расстроился, а в это время наглый [playerKick] пошатнувшись размозжил копчиком губы оппонента.',
+        '[playerDefence] осмотрелся, но внезапно [playerKick] робко размозжил коленом левый глаз противника.',
+        '[playerDefence] осмотрелся, а [playerKick] вломил дробящий удар плечом, пробив блок, куда обычно не бьют оппонента.',
+        '[playerDefence] ковырялся в зубах, как вдруг, неожиданно [playerKick] отчаянно размозжил плечом мышцы пресса оппонента.',
+        '[playerDefence] пришел в себя, и в это время [playerKick] провел разбивающий удар кистью руки, пробив блок, в голень противника.',
+        '[playerDefence] пошатнулся, а в это время [playerKick] хихикая влепил грубый удар открытой ладонью по бедрам врага.',
+    ],
+    defence: [
+        '[playerKick] потерял момент и храбрый [playerDefence] отпрыгнул от удара открытой ладонью в ключицу.',
+        '[playerKick] не контролировал ситуацию, и потому [playerDefence] поставил блок на удар пяткой в правую грудь.',
+        '[playerKick] потерял момент и [playerDefence] поставил блок на удар коленом по селезенке.',
+        '[playerKick] поскользнулся и задумчивый [playerDefence] поставил блок на тычок головой в бровь.',
+        '[playerKick] старался провести удар, но непобедимый [playerDefence] ушел в сторону от удара копчиком прямо в пятку.',
+        '[playerKick] обманулся и жестокий [playerDefence] блокировал удар стопой в солнечное сплетение.',
+        '[playerKick] не думал о бое, потому расстроенный [playerDefence] отпрыгнул от удара кулаком куда обычно не бьют.',
+        '[playerKick] обманулся и жестокий [playerDefence] блокировал удар стопой в солнечное сплетение.'
+    ],
+    draw: 'Ничья - это тоже победа!'
+};
+
 
 const player001 = {
     player: 1,
@@ -102,29 +145,6 @@ function playerWins(name) {
     return $winTitle;
 }
 
-// $randomButton.addEventListener('click', function() {
-//     player001.changeHP(getRandom(20))
-//     player002.changeHP(getRandom(20))
-//     player001.renderHP()
-//     player002.renderHP()
-    
-//     if (player001.hp === 0 || player002.hp ===0) {
-//         $randomButton.disabled = true;
-//         $randomButton.style.backgroundColor = "red";
-//     }
-    
-//     if (player001.hp === 0 && player001.hp < player002.hp >0) {
-//         $arenas.appendChild(playerWins(player002.name));
-//     } else if (player002.hp === 0 && player002.hp < player001.hp >0) {
-//         $arenas.appendChild(playerWins(player001.name));
-//     } else if (player002.hp === 0 && player002.hp === 0) {
-//         $arenas.appendChild(playerWins());
-//     }
-//     if ($randomButton.disabled) {
-//         createReloadButton()
-//     }
-// });
-
 function createReloadButton() {
     const $reloadButtonDiv = createElement('div', 'reloadWrap');
     const $reloadButton = createElement('button', 'button');
@@ -142,9 +162,6 @@ function createReloadButton() {
 $arenas.appendChild(createPlayer(player001));
 $arenas.appendChild(createPlayer(player002));
 
-
-
-
 function enemyAttack() {
   const hit = ATTACK[getRandom(ATTACK.length)-1];
   const defence = ATTACK[getRandom(ATTACK.length)-1];
@@ -159,12 +176,9 @@ function enemyAttack() {
   
 }
 
-$formFight.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const enemy = enemyAttack();
-    // console.log('###: enemy', enemy);
+function playerAttack() {
     const attack = {};
-
+    
     for (let item of $formFight) {
         // console.dir(item);
         if (item.checked && item.name ==='hit') {  // цикл определяет какой чекбокс выбран - куда бью
@@ -173,41 +187,107 @@ $formFight.addEventListener('submit', function(e) {
             attack.hit = item.value; // куда ударил
             // console.log(attack.hit);
         }
-
         if (item.checked && item.name === 'defence') { //цикл определяет какой чекбокс выбран - что защищаю
             attack.defence = item.value; // что защищал
         }
 
         item.checked = false; // сброс чекбоксов
     }
-    console.log('###: a', attack);
-    console.log('###: e', enemy);
-    
-    if (attack.hit !== enemy.defence) {
-        player002.changeHP(attack.value);
-        player002.renderHP()
-    }
-    if (enemy.hit !== attack.defence) {
-        player001.changeHP(enemy.value);
-        player001.renderHP()
-    }
-    console.log(player001.hp);
-    console.log(player002.hp);
-    
+    return attack;
+}
+
+function showResult() {
     if (player001.hp === 0 || player002.hp ===0) {
         $randomButton.disabled = true;
-    }
-    
-    if (player001.hp === 0 && player001.hp < player002.hp >0) {
-        $arenas.appendChild(playerWins(player002.name));
-    } else if (player002.hp === 0 && player002.hp < player001.hp >0) {
-        $arenas.appendChild(playerWins(player001.name));
-    } else if (player002.hp === 0 && player002.hp === 0) {
-        $arenas.appendChild(playerWins());
-    }
-    if ($randomButton.disabled) {
         createReloadButton()
     }
+    if (player001.hp === 0 && player001.hp < player002.hp >0) {
+        $arenas.appendChild(playerWins(player002.name));
+        showEndMessage('end', player002);
+    } else if (player002.hp === 0 && player002.hp < player001.hp >0) {
+        $arenas.appendChild(playerWins(player001.name));
+        showEndMessage('end', player001);
+    } else if (player002.hp === 0 && player002.hp === 0) {
+        $arenas.appendChild(playerWins());
+        showEndMessage ('draw');
+    }
+}
+
+function generateLogs(type, player1, player2, value) {
+    const text = logs[type][getRandom(logs[type].length -1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
+    let el;
+    switch (type) {
+        case 'hit':
+            el = `<p>${showTime()} - ${text} -${value} [${player2.hp}/100]</p>`;
+            break;
+        case 'defence':
+            el = `<p>${showTime()} - ${text}</p>`;
+            break;
+    }
+    return $chat.insertAdjacentHTML('afterbegin', el);
+}
+
+function showTime (){
+    const date = new Date();
+
+    const normalize = (num) => (num.toString().length > 1 ? num : `0${num}`);
+    const time = `${normalize(date.getHours())}:${normalize(date.getMinutes())}`;
+    // let hours = date.getHours();
+    // let minutes = date.getMinutes();
+    // if (hours < 10) {
+    //     hours = `0${hours}`
+    // }
+    // if (minutes < 10) {
+    //     minutes = `0${minutes}`
+    // }
+    // const timeEvent = hours + ':' + minutes;
+    const el = `<p>${time}</p>`;
+    return time;
+}
+      
+function showStartMessage(type) {
+    const text = logs[type].replace('[time]', showTime()).replace('[player1]', player001.name).replace('[player2]', player002.name);
+    el = `<p>${text}</p>`;
+    $chat.insertAdjacentHTML('afterbegin',el);
+}
+
+function showEndMessage(type, player) {
+    let text = logs[type][getRandom(logs[type].length -1)];
+    if (player === player001) {
+        text = logs[type][getRandom(logs[type].length -1)].replace('[playerLose]', player002.name).replace('[playerWins]', player001.name);
+    } else if (player === player002) {
+        text = logs[type][getRandom(logs[type].length -1)].replace('[playerLose]', player001.name).replace('[playerWins]', player002.name);
+    } else {
+        text = logs[type];
+    }
+    el = `<p>${text}</p>`;
+    $chat.insertAdjacentHTML('afterbegin',el);
+}
+
+
+$formFight.addEventListener('submit', function(e) {
+    e.preventDefault('start');
+   
+    const enemy = enemyAttack();
+    const player = playerAttack();
+   
+    if (player.defence !== enemy.hit) {
+        player001.changeHP(enemy.value);
+        player001.renderHP();
+        generateLogs('hit', player002, player001, enemy.value);
+    } else {
+        generateLogs('defence', player002, player001);
+    }
+
+    if (enemy.defence !== player.hit) {
+        player002.changeHP(player.value);
+        player002.renderHP();
+        generateLogs('hit', player001, player002, player.value);
+    } else {
+        generateLogs('defence', player001, player002);
+    }
+ 
+    showResult();
 });
 
-
+showStartMessage ('start');
