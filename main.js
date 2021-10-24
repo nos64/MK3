@@ -201,29 +201,43 @@ function showResult() {
         $randomButton.disabled = true;
         createReloadButton()
     }
-    if (player001.hp === 0 && player001.hp < player002.hp >0) {
+    if (player001.hp === 0 && player001.hp < player002.hp > 0) {
         $arenas.appendChild(playerWins(player002.name));
-        showEndMessage('end', player002);
-    } else if (player002.hp === 0 && player002.hp < player001.hp >0) {
+        generateLogs('end', player001, player002);
+    } else if (player002.hp === 0 && player002.hp < player001.hp > 0) {
         $arenas.appendChild(playerWins(player001.name));
-        showEndMessage('end', player001);
+        generateLogs('end', player002, player001);
     } else if (player002.hp === 0 && player002.hp === 0) {
         $arenas.appendChild(playerWins());
-        showEndMessage ('draw');
+        generateLogs('draw');
     }
 }
 
 function generateLogs(type, player1, player2, value) {
-    const text = logs[type][getRandom(logs[type].length -1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
+    let text;
     let el;
     switch (type) {
         case 'hit':
+            text = logs[type][getRandom(logs[type].length -1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
             el = `<p>${showTime()} - ${text} -${value} [${player2.hp}/100]</p>`;
             break;
         case 'defence':
+            text = logs[type][getRandom(logs[type].length -1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
             el = `<p>${showTime()} - ${text}</p>`;
             break;
-    }
+        case 'start':
+            text = logs[type].replace('[time]', showTime()).replace('[player1]', player001.name).replace('[player2]', player002.name);
+            el = `<p>${text}</p>`;
+            break;
+        case 'end':
+            text = logs[type][getRandom(logs[type].length -1)].replace('[playerLose]', player1.name).replace('[playerWins]', player2.name);
+            el = `<p>${text}</p>`;
+            break;
+        case 'draw':
+            text = logs[type];
+            el = `<p>${text}</p>`;
+            break;
+        }
     return $chat.insertAdjacentHTML('afterbegin', el);
 }
 
@@ -245,25 +259,6 @@ function showTime (){
     return time;
 }
       
-function showStartMessage(type) {
-    const text = logs[type].replace('[time]', showTime()).replace('[player1]', player001.name).replace('[player2]', player002.name);
-    el = `<p>${text}</p>`;
-    $chat.insertAdjacentHTML('afterbegin',el);
-}
-
-function showEndMessage(type, player) {
-    let text = logs[type][getRandom(logs[type].length -1)];
-    if (player === player001) {
-        text = logs[type][getRandom(logs[type].length -1)].replace('[playerLose]', player002.name).replace('[playerWins]', player001.name);
-    } else if (player === player002) {
-        text = logs[type][getRandom(logs[type].length -1)].replace('[playerLose]', player001.name).replace('[playerWins]', player002.name);
-    } else {
-        text = logs[type];
-    }
-    el = `<p>${text}</p>`;
-    $chat.insertAdjacentHTML('afterbegin',el);
-}
-
 
 $formFight.addEventListener('submit', function(e) {
     e.preventDefault('start');
@@ -290,4 +285,4 @@ $formFight.addEventListener('submit', function(e) {
     showResult();
 });
 
-showStartMessage ('start');
+generateLogs('start', player001, player002);
