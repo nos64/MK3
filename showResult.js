@@ -1,9 +1,9 @@
-import {player001, player002} from './player.js';
+import {player001, player002} from './classPlayer.js';
 import {end, draw} from './logs.js';
 import {createReloadButton} from './reloadBtn.js';
 import {playerWins} from './finalMsg.js';
 import {generateLogs} from './generateLogs.js';
-import {$arenas} from './main.js';
+import {$arenas} from './classGame.js';
 
 const $randomButton = document.querySelector('.button');
 
