@@ -1,12 +1,14 @@
 export default class Game {
-    constructor(props) {
+    constructor() {
+        this.$arenas = document.querySelector('.arenas');
+        this.$formFight = document.querySelector('.control');
     }
+
     start = () => {
         $arenas.appendChild(createPlayer(player001));
         $arenas.appendChild(createPlayer(player002));
         generateLogs(start, player001, player002);
-        
-        $formFight.addEventListener('submit', function(e) {
+        $formFight.addEventListener('submit', (e) => {
             e.preventDefault(start);
            
             const {hit: hitEnemy, defence: defenceEnemy, value: valueEnemy} = enemyAttack();
@@ -30,10 +32,13 @@ export default class Game {
             showResult();
         }); 
     }
+
+    
 }
 
 export const $arenas = document.querySelector('.arenas');
 export const $formFight = document.querySelector('.control');
+
 
 import {start, hit, defence} from './logs.js';
 import {player001, player002} from './classPlayer.js';
