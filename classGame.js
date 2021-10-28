@@ -5,10 +5,10 @@ export default class Game {
     }
 
     start = () => {
-        $arenas.appendChild(createPlayer(player001));
-        $arenas.appendChild(createPlayer(player002));
+        this.$arenas.appendChild(createPlayer(player001));
+        this.$arenas.appendChild(createPlayer(player002));
         generateLogs(start, player001, player002);
-        $formFight.addEventListener('submit', (e) => {
+        this.$formFight.addEventListener('submit', (e) => {
             e.preventDefault(start);
            
             const {hit: hitEnemy, defence: defenceEnemy, value: valueEnemy} = enemyAttack();
