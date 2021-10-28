@@ -1,5 +1,5 @@
 import {createElement} from './create.js';
-import {$arenas} from './main.js';
+import {$arenas} from './classGame.js';
 
 export const createReloadButton = () => {
     const $reloadButtonDiv = createElement('div', 'reloadWrap');
