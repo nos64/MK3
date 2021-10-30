@@ -1,5 +1,5 @@
 import {createElement} from './create.js';
-import {$arenas} from './classGame.js';
+import {$arenas} from './Game.js';
 
 export const createReloadButton = () => {
     const $reloadButtonDiv = createElement('div', 'reloadWrap');
@@ -11,6 +11,8 @@ export const createReloadButton = () => {
     $reloadButtonDiv.appendChild($reloadButton);
     
     $reloadButton.addEventListener('click', function() {
-        window.location.reload()
+        // window.location.reload() 
+            window.location.pathname = 'index.html';
+
     });
 }

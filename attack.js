@@ -1,17 +1,17 @@
 import getRandom from './getRandom.js';
 import {HIT, ATTACK} from './hit-attack.js';
-import {$formFight} from './classGame.js';
+import {$formFight} from './Game.js';
 
-export const enemyAttack = () => {
-    const hit = ATTACK[getRandom(ATTACK.length)-1];
-    const defence = ATTACK[getRandom(ATTACK.length)-1];
+// export const enemyAttack = () => {
+//     const hit = ATTACK[getRandom(ATTACK.length)-1];
+//     const defence = ATTACK[getRandom(ATTACK.length)-1];
 
-    return {
-        value: getRandom(HIT[hit]),
-        hit,
-        defence,
-    }
-  }
+//     return {
+//         value: getRandom(HIT[hit]),
+//         hit,
+//         defence,
+//     }
+//   }
 export  const playerAttack = () => {
       const attack = {};
       
