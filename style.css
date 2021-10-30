@@ -410,8 +410,9 @@ input[type=radio]:checked + label > span:hover {
 }
 
 .fightImg {
-    position: fixed;
-    top: 10%;
-    left: 43%;
+    position: absolute;
+    width: 200px;
+    top: 12%;
+    left: 38%;
     z-index: 1500;
 }

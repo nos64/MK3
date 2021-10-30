@@ -88,13 +88,13 @@ export class Game {
         fightAudio.autoplay = true;
         setTimeout(() => {
             $fightImg.style.display = 'none';
-        }, 2500);
-        
-        
+        }, 2500); 
     }
-
+    
     start = async () => {
         this.showFigtImg()
+        
+        
         ///Task #1
         // const players = await this.getPlayers();
         // // console.log(players)
