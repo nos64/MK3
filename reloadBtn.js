@@ -12,7 +12,7 @@ export const createReloadButton = () => {
     
     $reloadButton.addEventListener('click', function() {
         // window.location.reload() 
-            window.location.pathname = '/index.html';
+            window.location.pathname = 'index.html';
 
     });
 }
