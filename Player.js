@@ -26,21 +26,4 @@ class Player {
     
 }
 
-export const player001 = new Player({
-    player: 1,
-    name: 'LIUKANG',
-    hp: 100,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
-    weapon: ['Katana', 'Gun', 'Bomb'],   
-});
-
-export const player002 = new Player({
-    player: 2,
-    name: 'SUBZERO',
-    hp: 100,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/subzero.gif',
-    weapon: ['Pig', 'Knife', 'Rifle'],
-    
-});
-
 export default Player;
