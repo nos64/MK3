@@ -1,22 +1,27 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Mortal Kombat</title>
-    <link rel="stylesheet" href="index.css">
-</head>
-<body>
-<div class="root">
-    <div class="title">
-        SELECT YOUR FIGHTERS
+    <link rel="stylesheet" href="index.css" />
+    <link rel="icon" href="assets/favicon.png" type="image" />
+  </head>
+  <body>
+    <div class="root">
+      <div class="title">SELECT YOUR FIGHTERS</div>
+      <div class="player"></div>
+      <div class="parent"></div>
+      <audio
+        src="/assets/sound/mk3-select.mp3"
+        autoplay="true"
+        loop="true"
+      ></audio>
+      <script src="index.js"></script>
     </div>
-    <div class="player"></div>
-    <div class="parent"></div>
-    <audio src="/assets/sound/mk3-select.mp3" autoplay="true" loop="true"></audio>
-    <script src="index.js"></script>
-</div>
-</body>
+  </body>
 </html>
