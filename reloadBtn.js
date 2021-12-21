@@ -11,7 +11,6 @@ export const createReloadButton = () => {
     $reloadButtonDiv.appendChild($reloadButton);
     
     $reloadButton.addEventListener('click', function() {
-        // window.location.reload() 
             window.location.pathname = 'index.html';
 
     });

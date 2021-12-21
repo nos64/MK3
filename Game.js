@@ -7,13 +7,7 @@ export class Game {
         this.$arenas = document.querySelector('.arenas');
         this.$formFight = document.querySelector('.control');
     }
-    ///Task #1
-    // getPlayers = async () => {
-    //     const body = fetch('https://reactmarathon-api.herokuapp.com/api/mk/players').then(res => res.json());
-    //     return body;
-    // }
 
-    ///Task #2
     getPlayer = async () => {
         const body  = await fetch('https://reactmarathon-api.herokuapp.com/api/mk/players').then(res => res.json());
         return body;
@@ -32,7 +26,6 @@ export class Game {
             })
         });
         let result = await body.json();
-        // console.log(result);
         return result;
       }
 
@@ -93,31 +86,9 @@ export class Game {
     
     start = async () => {
         this.showFigtImg()
-        
-        
-        ///Task #1
-        // const players = await this.getPlayers();
-        // // console.log(players)
-        // const p1 = players[getRandom(players.length)-1];
-        // const p2 = players[getRandom(players.length)-1];
-        // console.log(p1, p2);
-        // player1 = new Player({
-        //     ...p1,
-        //     player: 1,
-        //     rootSelector: 'arenas',
-        // });
-        // player2 = new Player({
-        //     ...p2,
-        //     player: 2,
-        //     rootSelector: 'arenas',
-        // });
-        // Task #2
-        // const player = await this.getPlayer();
         const enemy = await this.getEnemy();
-        // const p1 = player[getRandom(player.length)-1];
         const p1 = JSON.parse(localStorage.getItem('player1'));
         const p2 = enemy;
-        // console.log(p1, p2);
         player1 = new Player({
             ...p1,
             player: 1,
@@ -131,8 +102,6 @@ export class Game {
         this.$arenas.appendChild(createPlayer(player1));
         this.$arenas.appendChild(createPlayer(player2));
         generateLogs(start, player1, player2);
-        // player1.createPlayer();
-        // player2.createPlayer();
 
         this.$formFight.addEventListener('submit', (e) => {
             e.preventDefault(start);
